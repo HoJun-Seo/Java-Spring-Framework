@@ -27,7 +27,5 @@ public class TestprojectApplication {
 		// transpotationWalk.move();
 		System.out.println("ctx 객체 생성");
 		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(BeanTestctx.class);
-
-		ctx.close();
 	}
 }
