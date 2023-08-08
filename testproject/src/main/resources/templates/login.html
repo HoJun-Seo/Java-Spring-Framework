@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,22 +25,16 @@
     </style>
 </head>
 <body>
-    <form action="/login" method="post" id="formTag">
+    <form action="#" th:action="@{/login}" th:object="${loginForm}" method="post" id="formTag">
         <label for="userId">ID :   </label>
-        <input type="text" name="userId" id="userId">
+        <input type="text" name="userId" id="userId" th:field="*{userId}">
         <br>
         <label for="userPwd">Password : </label>
-        <input type="text" name="userPwd" id="userPwd">
+        <input type="text" name="userPwd" id="userPwd" th:field="*{userPwd}">
         <br>
         <div id="btnDiv">
             <input type="submit" value="Login" id="loginBtn">
         </div>
-        
-        <!-- <div id="loginForm">
-            ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="userId" id="userId"><br>
-            Password : <input type="text" name="userPwd" id="userPwd"><br>
-        </div>
-        <input type="submit" value="Login" id="loginBtn"> -->
     </form>
 </body>
 </html>

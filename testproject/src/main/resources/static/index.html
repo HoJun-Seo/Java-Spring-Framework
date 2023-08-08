@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
+    <style>
+        #moveLogin{
+            width: 120px;
+            height: 40px;
+        }
+    </style>
 </head>
 <body>
     <h1>Hello World!</h1>
     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis voluptatum blanditiis distinctio nam repellat quos eum quia dolorem corporis necessitatibus reprehenderit rerum beatae corrupti qui tempora, et asperiores mollitia commodi!</p>
     <p>한글 깨지는지 여부 확인</p>
     <form action="/login" method="get">
-        <button type="submit">login</button>
+        <button type="submit" id="moveLogin">로그인 하러가기</button>
     </form>
 </body>
 </html>
