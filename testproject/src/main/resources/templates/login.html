@@ -4,9 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <style>
+        #userId, #userPwd{
+            width: 300px;
+            height: 30px;
+        }
+        #loginBtn{
+            width: 100px;
+            height: 30px;
+        }
+        #btnDiv{
+            margin-left: 314px;
+        }
+        label{
+            display:inline-block;
+	        text-align:center;
+	        width:100px;
+	        font-weight:bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Login Success</h1>
-    <h2 style="display: inline;">loginKey is <h2 style="display: inline;" th:text="${loginKey}"></h2></h2>
+    <form action="/login" method="post" id="formTag">
+        <label for="userId">ID :   </label>
+        <input type="text" name="userId" id="userId">
+        <br>
+        <label for="userPwd">Password : </label>
+        <input type="text" name="userPwd" id="userPwd">
+        <br>
+        <div id="btnDiv">
+            <input type="submit" value="Login" id="loginBtn">
+        </div>
+        
+        <!-- <div id="loginForm">
+            ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="userId" id="userId"><br>
+            Password : <input type="text" name="userPwd" id="userPwd"><br>
+        </div>
+        <input type="submit" value="Login" id="loginBtn"> -->
+    </form>
 </body>
 </html>
