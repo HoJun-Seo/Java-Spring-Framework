@@ -3,13 +3,14 @@ package spring4.testproject.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import spring4.testproject.Bean.BeanTest;
+import spring4.testproject.Form.LoginForm;
+import spring4.testproject.Model.Member;
 
 @Configuration
-public class BeanTestctx {
+public class BeanConfiguration {
 
     @Bean
-    public BeanTest beanTest() {
-        return new BeanTest();
+    public LoginForm loginForm() {
+        return new LoginForm();
     }
 }

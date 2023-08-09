@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        #userId, #userPwd{
+            width: 300px;
+            height: 30px;
+        }
+        #loginBtn{
+            width: 100px;
+            height: 30px;
+        }
+        #btnDiv{
+            margin-left: 314px;
+        }
+        label{
+            display:inline-block;
+	        text-align:center;
+	        width:100px;
+	        font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <form action="#" th:action="@{/login}" th:object="${loginForm}" method="post" id="formTag">
+        <label for="userId">ID :   </label>
+        <input type="text" name="userId" id="userId" th:field="*{userId}">
+        <br>
+        <label for="userPwd">Password : </label>
+        <input type="text" name="userPwd" id="userPwd" th:field="*{userPwd}">
+        <br>
+        <div id="btnDiv">
+            <input type="submit" value="Login" id="loginBtn">
+        </div>
+    </form>
+</body>
+</html>
