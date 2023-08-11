@@ -3,17 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
     <title>Document</title>
   </head>
 
   <body>
-    <input type="hidden" name="memberData" th:text="${memberData.userId}" />
     <div th:if="${loginConfirm == 'loginSuccess'}">
       <script th:inline="javascript">
         const memberObject = [[${memberData}]];
 
         function loginSuccess() {
-          console.log(memberObject);
+          // 가지고 있는 member 객체를 로그인 성공 이후 유저의 정보를 표시하는 페이지로 이동
+          // index 페이지에서 로그인 상태와 그렇지 않은 상태를 구분해서 페이지를 다르게 표시해주는 것도 방법
         }
         loginSuccess();
       </script>
