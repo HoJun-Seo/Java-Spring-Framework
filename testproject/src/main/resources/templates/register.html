@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Document</title>
     <style>
+      #title {
+        margin-left: 200px;
+      }
       #userId,
       #userPwd {
         width: 300px;
         height: 30px;
       }
-      #loginBtn {
+      #registerBtn {
         width: 100px;
         height: 30px;
       }
       #btnDiv {
         margin-left: 314px;
-      }
-      #title {
-        margin-left: 200px;
       }
       label {
         display: inline-block;
@@ -29,8 +29,8 @@
     </style>
   </head>
   <body>
-    <h1 id="title">Login</h1>
-    <form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+    <h1 id="title">회원 가입</h1>
+    <form action="#" th:action="@{/register}" th:object="${registerForm}" method="post">
       <label for="userId">ID : </label>
       <input type="text" name="userId" id="userId" th:field="*{userId}" />
       <br />
@@ -38,7 +38,7 @@
       <input type="text" name="userPwd" id="userPwd" th:field="*{userPwd}" />
       <br />
       <div id="btnDiv">
-        <input type="submit" value="Login" id="loginBtn" />
+        <input type="submit" value="회원가입" id="registerBtn" />
       </div>
     </form>
   </body>

@@ -2,11 +2,8 @@ package spring4.testproject.Interface.RepositoryInterface;
 
 import java.util.Optional;
 
-import org.springframework.stereotype.Repository;
-
 import spring4.testproject.Model.Member;
 
-@Repository
 public interface MemberRepository {
 
     // 유저 검색

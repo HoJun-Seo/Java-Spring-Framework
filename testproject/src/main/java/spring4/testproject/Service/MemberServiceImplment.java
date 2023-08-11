@@ -2,11 +2,14 @@ package spring4.testproject.Service;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import lombok.RequiredArgsConstructor;
 import spring4.testproject.Interface.ServiceInterface.MemberService;
 import spring4.testproject.Model.Member;
 import spring4.testproject.Repository.MemberRepositoryImplment;
 
+@Service
 @RequiredArgsConstructor
 public class MemberServiceImplment implements MemberService {
 

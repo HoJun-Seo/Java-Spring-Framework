@@ -1,10 +1,7 @@
 package spring4.testproject.Interface.ServiceInterface;
 
-import org.springframework.stereotype.Service;
-
 import spring4.testproject.Model.Member;
 
-@Service
 public interface MemberService {
 
     // 유저 검색

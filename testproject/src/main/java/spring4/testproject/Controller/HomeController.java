@@ -16,11 +16,17 @@ import spring4.testproject.Interface.ServiceInterface.MemberService;
 import spring4.testproject.Model.Member;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
 
     private final LoginForm loginForm;
+    private final RegisterForm registerForm;
+    private final UpdateForm updateForm;
+    private final DeleteForm deleteForm;
 
     private final MemberService memberService;
 
@@ -30,8 +36,14 @@ public class HomeController {
         return "login";
     }
 
+    @GetMapping("/register")
+    public String register(Model model) {
+        model.addAttribute("registerForm", registerForm);
+        return "register";
+    }
+
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginForm loginForm, Model model) {
+    public String login(@ModelAttribute LoginForm loginForm, Model model) throws JsonProcessingException {
 
         String userId = loginForm.getUserId();
         String userPwd = loginForm.getUserPwd();
@@ -43,13 +55,18 @@ public class HomeController {
         String searchResult = memberService.memberLogin(member);
         if (searchResult.equals("loginSuccess")) {
             System.out.println("로그인 성공!");
+            model.addAttribute("loginConfirm", "loginSuccess");
+            model.addAttribute("memberData", member);
+            return "/confirm/loginConfirm";
         } else if (searchResult.equals("pwdNotMatch")) {
             System.out.println("비밀번호가 일치하지 않습니다.");
+            model.addAttribute("loginConfirm", "notMatchPwd");
+            return "/confirm/loginConfirm";
         } else {
             System.out.println("존재하지 않는 계정입니다.");
+            model.addAttribute("loginConfirm", "notExistAccount");
+            return "/confirm/loginConfirm";
         }
-
-        return null;
     }
 
     @PostMapping("/register")
@@ -65,10 +82,13 @@ public class HomeController {
         String registerResult = memberService.memberRegister(member);
         if (registerResult.equals("existMember")) {
             System.out.println("이미 존재하는 계정입니다.");
+            model.addAttribute("exist", "alreadyExist");
+            return "/confirm/registerConfirm";
         } else {
             System.out.println("회원가입이 성공적으로 완료 되었습니다.");
+            model.addAttribute("exist", "registerSuccess");
+            return "/confirm/registerConfirm";
         }
-        return null;
     }
 
     @PutMapping("/update")

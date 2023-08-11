@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.stereotype.Repository;
+
 import spring4.testproject.Interface.RepositoryInterface.MemberRepository;
 import spring4.testproject.Model.Member;
 
+@Repository
 public class MemberRepositoryImplment implements MemberRepository {
 
     private static Map<String, Member> dbMap = new HashMap<>();
