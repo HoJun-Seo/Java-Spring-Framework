@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+    <style>
+      #buttonDiv {
+        width: 300px;
+        text-align: center;
+      }
+      #moveLogin,
+      #moveRegister {
+        display: inline-block;
+        width: 130px;
+        height: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <div th:if="${memberData.userId == null}">
+      <div id="buttonDiv">
+        <button type="submit" id="moveLogin" onclick="location.href='/login'">로그인 하러가기</button>
+        <button type="submit" id="moveRegister" onclick="location.href='/register'">회원가입 하러가기</button>
+      </div>
+    </div>
+    <div id="userAccount">
+      <p th:if="${memberData.userId != ''}">ID : [[${memberData.userId}]]</p>
+      <p th:if="${memberData.userId != ''}">PWD : [[${memberData.userPwd}]]</p>
+    </div>
+  </body>
+</html>

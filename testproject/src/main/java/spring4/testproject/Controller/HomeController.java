@@ -15,9 +15,9 @@ import spring4.testproject.Form.UpdateForm;
 import spring4.testproject.Interface.ServiceInterface.MemberService;
 import spring4.testproject.Model.Member;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequiredArgsConstructor
@@ -67,6 +67,12 @@ public class HomeController {
             model.addAttribute("loginConfirm", "notExistAccount");
             return "/confirm/loginConfirm";
         }
+    }
+
+    @PostMapping("/loginIndex")
+    public String loginIndex(@RequestBody Member member, Model model) {
+        model.addAttribute("memberData", member);
+        return "index";
     }
 
     @PostMapping("/register")
