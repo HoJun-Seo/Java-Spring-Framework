@@ -42,6 +42,18 @@ public class HomeController {
         return "register";
     }
 
+    @GetMapping("/update")
+    public String update(Model model) {
+        model.addAttribute("updateForm", updateForm);
+        return "update";
+    }
+
+    @GetMapping("/delete")
+    public String delete(Model model) {
+        model.addAttribute("deleteForm", deleteForm);
+        return "delete";
+    }
+
     @PostMapping("/login")
     public String login(@ModelAttribute LoginForm loginForm, Model model) throws JsonProcessingException {
 
@@ -72,7 +84,7 @@ public class HomeController {
     @PostMapping("/loginIndex")
     public String loginIndex(@RequestBody Member member, Model model) {
         model.addAttribute("memberData", member);
-        return "index";
+        return "loginIndex";
     }
 
     @PostMapping("/register")

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    #buttonDiv {
+      width: 300px;
+      text-align: center;
+    }
+    #moveUpdate,
+    #moveDelete {
+      width: 130px;
+      height: 40px;
+    }
+  </style>
+  <body>
+    <h1>Hello World!</h1>
+    <div id="userAccount">
+      <h3>ID : [[${memberData.userId}]]</h3>
+      <h3>PWD : [[${memberData.userPwd}]]</h3>
+    </div>
+    <div id="buttonDiv">
+      <button type="submit" id="moveUpdate" onclick="location.href='/update'">회원정보 수정</button>
+      <button type="submit" id="moveDelete" onclick="location.href='/delete'">회원탈퇴</button>
+    </div>
+  </body>
+</html>

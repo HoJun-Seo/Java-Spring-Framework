@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
     <title>Index</title>
     <style>
       #buttonDiv {
@@ -11,7 +16,6 @@
       }
       #moveLogin,
       #moveRegister {
-        display: inline-block;
         width: 130px;
         height: 40px;
       }
@@ -19,15 +23,9 @@
   </head>
   <body>
     <h1>Hello World!</h1>
-    <div th:if="${memberData.userId == null}">
-      <div id="buttonDiv">
-        <button type="submit" id="moveLogin" onclick="location.href='/login'">로그인 하러가기</button>
-        <button type="submit" id="moveRegister" onclick="location.href='/register'">회원가입 하러가기</button>
-      </div>
-    </div>
-    <div id="userAccount">
-      <p th:if="${memberData.userId != ''}">ID : [[${memberData.userId}]]</p>
-      <p th:if="${memberData.userId != ''}">PWD : [[${memberData.userPwd}]]</p>
+    <div id="buttonDiv">
+      <button type="submit" id="moveLogin" onclick="location.href='/login'">로그인 하러가기</button>
+      <button type="submit" id="moveRegister" onclick="location.href='/register'">회원가입 하러가기</button>
     </div>
   </body>
 </html>
