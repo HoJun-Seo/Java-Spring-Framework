@@ -38,7 +38,23 @@
         loginSuccess();
       </script>
     </div>
-    <div></div>
+    <div th:if="${loginConfirm == 'notMatchPwd'}">
+      <script th:inline="javascript">
+        alert("비밀번호가 일치하지 않습니다.");
+        fetch("/login", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.text();
+          })
+          .then(function (html) {
+            document.body.innerHTML = html;
+          });
+      </script>
+    </div>
     <div></div>
   </body>
 </html>
