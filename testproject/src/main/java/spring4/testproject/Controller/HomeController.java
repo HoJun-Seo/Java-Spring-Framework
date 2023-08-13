@@ -30,6 +30,11 @@ public class HomeController {
 
     private final MemberService memberService;
 
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
     @GetMapping("/login")
     public String login(Model model) {
         model.addAttribute("loginForm", loginForm);
@@ -43,7 +48,8 @@ public class HomeController {
     }
 
     @GetMapping("/update")
-    public String update(Model model) {
+    public String update(@RequestBody Member member, Model model) {
+        model.addAttribute("memberData", member);
         model.addAttribute("updateForm", updateForm);
         return "update";
     }
@@ -101,12 +107,11 @@ public class HomeController {
         if (registerResult.equals("existMember")) {
             System.out.println("이미 존재하는 계정입니다.");
             model.addAttribute("exist", "alreadyExist");
-            return "/confirm/registerConfirm";
         } else {
             System.out.println("회원가입이 성공적으로 완료 되었습니다.");
             model.addAttribute("exist", "registerSuccess");
-            return "/confirm/registerConfirm";
         }
+        return "/confirm/registerConfirm";
     }
 
     @PutMapping("/update")
@@ -116,21 +121,24 @@ public class HomeController {
 
         Member currentMember = new Member();
         currentMember.setUserId(updateForm.getCurrentUserId());
+        currentMember.setUserPwd(updateForm.getCurrentUserPwd());
 
         Member updatMember = new Member();
-        updatMember.setUserId(updateForm.getUpdateUserId());
+        updatMember.setUserId(updateForm.getCurrentUserId());
         updatMember.setUserPwd(updateForm.getUpdateUserPwd());
 
         String updateResult = memberService.memberUpdate(currentMember, updatMember);
         if (updateResult.equals("updateFail")) {
             System.out.println("수정하고자 하는 유저 정보가 존재하지 않습니다.");
-        } else if (updateResult.equals("existUpdateMember")) {
-            System.out.println("이미 존재하는 유저 정보로는 수정할 수 없습니다.");
-        } else {
+            model.addAttribute("updateConfirm", "updateFail");
+        } else if (updateResult.equals("notMatchCurrentPwd")) {
+            System.out.println("현재 비밀번호가 일치하지 않습니다.");
+            model.addAttribute("updateConfirm", "notMatchCurrentPwd");
+        } else if (updateResult.equals("updateSuccess")) {
             System.out.println("유저 정보 수정이 성공적으로 완료 되었습니다.");
+            model.addAttribute("updateConfirm", "updateSuccess");
         }
-
-        return null;
+        return "/confirm/updateConfirm";
     }
 
     @DeleteMapping("/delete")

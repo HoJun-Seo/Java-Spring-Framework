@@ -3,7 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>회원 정보수정</title>
+    <style>
+      label {
+        display: inline-block;
+        text-align: center;
+        width: 100px;
+        font-weight: bold;
+      }
+      #updateBtn {
+        width: 100px;
+        height: 30px;
+      }
+      #currentUserPwd,
+      #updateUserPwd {
+        width: 300px;
+        height: 30px;
+      }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <h1>회원정보 수정</h1>
+    <form action="#" th:action="@{/update}" th:object="${updateForm}" method="post">
+      <input type="hidden" name="userId" id="userId" th:value="${memberData.userId}" th:field="*{currentUserId}" />
+      <br />
+      <label for="userPwd">현재 비밀번호 : </label>
+      <input type="text" name="currentUserPwd" id="currentUserPwd" th:field="*{currentUserPwd}" />
+      <br />
+      <label for="userPwd">새로운 비밀번호 : </label>
+      <input type="text" name="updateUserPwd" id="updateUserPwd" th:field="*{updateUserPwd}" />
+      <div id="btnDiv">
+        <input type="submit" value="수정 완료" id="updateBtn" />
+      </div>
+      <input type="hidden" name="_method" value="put" />
+    </form>
+  </body>
 </html>

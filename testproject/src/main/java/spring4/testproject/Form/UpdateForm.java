@@ -7,9 +7,9 @@ import lombok.Setter;
 @Setter
 public class UpdateForm {
 
-    private String currentUserId;
+    private String currentUserId; // hidden 으로 숨기기
 
-    private String updateUserId;
+    private String currentUserPwd;
     private String updateUserPwd;
 
 }

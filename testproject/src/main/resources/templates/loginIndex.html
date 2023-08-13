@@ -3,19 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <title>index</title>
+    <style>
+      #buttonDiv {
+        width: 300px;
+        text-align: center;
+      }
+      #moveUpdate,
+      #moveDelete {
+        width: 130px;
+        height: 40px;
+      }
+    </style>
   </head>
-  <style>
-    #buttonDiv {
-      width: 300px;
-      text-align: center;
-    }
-    #moveUpdate,
-    #moveDelete {
-      width: 130px;
-      height: 40px;
-    }
-  </style>
   <body>
     <h1>Hello World!</h1>
     <div id="userAccount">
@@ -23,8 +28,30 @@
       <h3>PWD : [[${memberData.userPwd}]]</h3>
     </div>
     <div id="buttonDiv">
-      <button type="submit" id="moveUpdate" onclick="location.href='/update'">회원정보 수정</button>
-      <button type="submit" id="moveDelete" onclick="location.href='/delete'">회원탈퇴</button>
+      <button
+        type="button"
+        id="moveUpdate"
+        onclick="javascript:function memberUpdate() {
+          const memberObject = '[[${memberData}]]';
+        fetch('/update', {
+              method: 'get',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                userId: memberObject.userId,
+                userPwd: memberObject.userPwd
+              })
+            }).then((response) => {
+              return response.text()
+            }).then(function(html) {
+              document.body.innerHTML = html
+            });
+      }"
+      >
+        회원정보 수정
+      </button>
+      <button type="button" id="moveDelete">회원탈퇴</button>
     </div>
   </body>
 </html>

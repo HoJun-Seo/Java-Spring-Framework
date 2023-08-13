@@ -8,7 +8,7 @@
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
-    <title>Document</title>
+    <title>index</title>
   </head>
 
   <body>
@@ -29,11 +29,12 @@
               userId: memberObject.userId,
               userPwd: memberObject.userPwd
             })
-          }).then((response) => {
-            return response.text()
-          }).then(function(html) {
-            document.body.innerHTML = html
-          });
+          }).then((response) =>{
+            return response.text();
+          })
+          .then(function(html){
+            document.body.innerHTML = html;
+          })
         }
         loginSuccess();
       </script>
@@ -55,6 +56,22 @@
           });
       </script>
     </div>
-    <div></div>
+    <div th:if="${loginConfirm == 'notExistAccount'}">
+      <script th:inline="javascript">
+        alert("존재하지 않는 계정입니다.");
+        fetch("/login", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.text();
+          })
+          .then(function (html) {
+            document.body.innerHTML = html;
+          });
+      </script>
+    </div>
   </body>
 </html>

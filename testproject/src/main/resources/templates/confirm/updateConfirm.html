@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div th:if="${updateConfirm == 'updateSuccess'}">
+      <script th:inline="javascript">
+        alert("회원정보 수정이 완료되었습니다, 다시 로그인해주세요");
+        fetch("/", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            return response.text();
+          })
+          .then(function (html) {
+            document.body.innerHTML = html;
+          });
+      </script>
+    </div>
+    <div th:if="${updateConfirm == 'notMatchCurrentPwd'}">
+      <script th:inline="javascript">
+        alert("현재 비밀번호가 일치하지 않습니다.");
+      </script>
+    </div>
+    <div th:if="${updateConfirm == 'updateFail'}"></div>
+  </body>
+</html>

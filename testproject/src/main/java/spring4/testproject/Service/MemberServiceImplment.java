@@ -60,13 +60,13 @@ public class MemberServiceImplment implements MemberService {
 
         if (optionalMember.isPresent()) {
 
-            Optional<Member> optionalUpdateMember = memberRepository.select(updatMember);
-            if (optionalUpdateMember.isPresent()) {
-                return "existUpdateMember";
-            } else {
-                memberRepository.memberDelete(currentMember);
-                memberRepository.memberRegister(updatMember);
+            Member getMember = optionalMember.get();
+            if (currentMember.getUserPwd().equals(getMember.getUserPwd())) {
+                memberRepository.memberRegister(getMember); // 어차피 userId 는 똑같음, 패스워드만 변경됨
                 return "updateSuccess";
+            } else {
+                // 현재 패스워드가 일치하지 않는 경우
+                return "notMatchCurrentPwd";
             }
         } else {
             return "updateFail";
