@@ -3,7 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <title>회원 탈퇴</title>
   </head>
-  <body></body>
+  <body>
+    <h1>회원 탈퇴</h1>
+    <form action="#" th:action="@{/delete}" th:object="${deleteForm}" th:method="delete">
+      <input type="hidden" name="deleteUserId" id="userId" th:value="${memberData.userId}" />
+      <br />
+      <label for="userPwd">현재 비밀번호 : </label>
+      <input type="text" name="deleteUserPwd" id="userPwd" />
+      <br />
+      <div id="btnDiv">
+        <input type="submit" value="회원 탈퇴" id="deleteBtn" />
+      </div>
+    </form>
+  </body>
 </html>

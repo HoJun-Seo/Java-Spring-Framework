@@ -14,25 +14,20 @@
     <div th:if="${updateConfirm == 'updateSuccess'}">
       <script th:inline="javascript">
         alert("회원정보 수정이 완료되었습니다, 다시 로그인해주세요");
-        fetch("/", {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            return response.text();
-          })
-          .then(function (html) {
-            document.body.innerHTML = html;
-          });
+        location.href = "/";
       </script>
     </div>
     <div th:if="${updateConfirm == 'notMatchCurrentPwd'}">
       <script th:inline="javascript">
         alert("현재 비밀번호가 일치하지 않습니다.");
+        location.href = "/update";
       </script>
     </div>
-    <div th:if="${updateConfirm == 'updateFail'}"></div>
+    <div th:if="${updateConfirm == 'updateFail'}">
+      <script th:inline="javascript">
+        alert("수정하고자 하는 유저 정보가 존재하지 않습니다.");
+        location.href = "/update";
+      </script>
+    </div>
   </body>
 </html>

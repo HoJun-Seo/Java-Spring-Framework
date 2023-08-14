@@ -15,7 +15,6 @@ import spring4.testproject.Form.UpdateForm;
 import spring4.testproject.Interface.ServiceInterface.MemberService;
 import spring4.testproject.Model.Member;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -48,14 +47,15 @@ public class HomeController {
     }
 
     @GetMapping("/update")
-    public String update(@RequestBody Member member, Model model) {
-        model.addAttribute("memberData", member);
+    public String update(Model model) {
         model.addAttribute("updateForm", updateForm);
         return "update";
     }
 
     @GetMapping("/delete")
-    public String delete(Model model) {
+    public String delete(@ModelAttribute Member member, Model model) {
+        model.addAttribute("memberData", member);
+        System.out.println("회원탈퇴 페이지 이동 : " + member.getUserId() + ", " + member.getUserPwd());
         model.addAttribute("deleteForm", deleteForm);
         return "delete";
     }
@@ -88,7 +88,7 @@ public class HomeController {
     }
 
     @PostMapping("/loginIndex")
-    public String loginIndex(@RequestBody Member member, Model model) {
+    public String loginIndex(@ModelAttribute Member member, Model model) {
         model.addAttribute("memberData", member);
         return "loginIndex";
     }
@@ -145,15 +145,23 @@ public class HomeController {
     public String memberDelete(@ModelAttribute DeleteForm deleteForm, Model model) {
 
         Member member = new Member();
-        member.setUserId(deleteForm.getUserId());
+        member.setUserId(deleteForm.getDeleteUserId());
+        member.setUserPwd(deleteForm.getDeleteUserPwd());
+        System.out.println("회원탈퇴 메소드 호출 : " + member.getUserId() + ", " + member.getUserPwd());
         String deleteResult = memberService.memberDelete(member);
 
         if (deleteResult.equals("deleteFail")) {
             System.out.println("삭제할 유저의 계정이 존재하지 않습니다.");
+            model.addAttribute("deleteConfirm", "deleteFail");
         } else if (deleteResult.equals("deleteSucess")) {
             System.out.println("성공적으로 유저의 정보가 삭제 되었습니다.");
+            model.addAttribute("deleteConfirm", "deleteSucess");
+        } else {
+            System.out.println("삭제할 유저의 현재 비밀번호가 일치하지 않습니다.");
+            model.addAttribute("memberData", member);
+            model.addAttribute("deleteConfirm", "notMatchPwd");
         }
-        return null;
+        return "/confirm/deleteConfirm";
 
     }
 }

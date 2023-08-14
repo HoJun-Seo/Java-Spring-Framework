@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div th:if="${deleteConfirm == 'deleteSucess'}">
+      <script th:inline="javascript">
+        alert("회원 탈퇴가 성공적으로 완료되었습니다.");
+        location.href = "/";
+      </script>
+    </div>
+    <div th:if="${deleteConfirm == 'notMatchPwd'}">
+      <script th:inline="javascript">
+        alert("탈퇴할 유저의 현재 비밀번호가 일치하지 않습니다.");
+      </script>
+      <form action="#" id="deleteForm" th:action="@{/delete}" method="get">
+        <input type="hidden" name="userId" th:value="${memberData.userId}" />
+        <input type="hidden" name="userPwd" th:value="${memberData.userPwd}" />
+      </form>
+      <script>
+        document.getElementById("deleteForm").submit();
+      </script>
+    </div>
+    <div th:if="${deleteConfirm == 'deleteFail'}">
+      <script th:inline="javascript">
+        alert("탈퇴할 유저의 계정이 존재하지 않습니다.");
+        location.href = "/";
+      </script>
+    </div>
+  </body>
+</html>

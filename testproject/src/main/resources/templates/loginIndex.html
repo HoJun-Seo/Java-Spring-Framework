@@ -8,6 +8,19 @@
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
+    <script>
+      function getUpdatePage() {
+        if (confirm("회원정보를 수정하시겠습니까?")) {
+          document.getElementById("updateForm").submit();
+        }
+      }
+
+      function getDeletePage() {
+        if (confirm("회원탈퇴를 진행하시겠습니까?")) {
+          document.getElementById("deleteForm").submit();
+        }
+      }
+    </script>
     <title>index</title>
     <style>
       #buttonDiv {
@@ -19,6 +32,10 @@
         width: 130px;
         height: 40px;
       }
+      #updateForm,
+      #deleteForm {
+        display: inline-block;
+      }
     </style>
   </head>
   <body>
@@ -28,30 +45,15 @@
       <h3>PWD : [[${memberData.userPwd}]]</h3>
     </div>
     <div id="buttonDiv">
-      <button
-        type="button"
-        id="moveUpdate"
-        onclick="javascript:function memberUpdate() {
-          const memberObject = '[[${memberData}]]';
-        fetch('/update', {
-              method: 'get',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                userId: memberObject.userId,
-                userPwd: memberObject.userPwd
-              })
-            }).then((response) => {
-              return response.text()
-            }).then(function(html) {
-              document.body.innerHTML = html
-            });
-      }"
-      >
-        회원정보 수정
-      </button>
-      <button type="button" id="moveDelete">회원탈퇴</button>
+      <form action="#" id="updateForm" th:action="@{/update}" method="get">
+        <button type="button" id="moveUpdate" onclick="getUpdatePage()">회원정보 수정</button>
+      </form>
+
+      <form action="#" id="deleteForm" th:action="@{/delete}" method="get">
+        <input type="hidden" name="userId" th:value="${memberData.userId}" />
+        <input type="hidden" name="userPwd" th:value="${memberData.userPwd}" />
+        <button type="button" id="moveDelete" onclick="getDeletePage()">회원탈퇴</button>
+      </form>
     </div>
   </body>
 </html>

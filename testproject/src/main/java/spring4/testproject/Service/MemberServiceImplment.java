@@ -62,7 +62,8 @@ public class MemberServiceImplment implements MemberService {
 
             Member getMember = optionalMember.get();
             if (currentMember.getUserPwd().equals(getMember.getUserPwd())) {
-                memberRepository.memberRegister(getMember); // 어차피 userId 는 똑같음, 패스워드만 변경됨
+                // 입력한 아이디, 패스워드 일치
+                memberRepository.memberRegister(updatMember); // 어차피 userId 는 똑같음, 패스워드만 변경됨
                 return "updateSuccess";
             } else {
                 // 현재 패스워드가 일치하지 않는 경우
@@ -81,8 +82,15 @@ public class MemberServiceImplment implements MemberService {
         if (optionalMember.isEmpty()) {
             return "deleteFail";
         } else {
-            memberRepository.memberDelete(member);
-            return "deleteSucess";
+            // hidden 으로 들어온 userId 계정이 존재할 경우 입력으로 들어온 비밀번호와 일치하는지 확인
+            Member getMember = optionalMember.get();
+            if (member.getUserPwd().equals(getMember.getUserPwd())) {
+                memberRepository.memberDelete(member);
+                return "deleteSucess";
+            } else {
+                return "notMatchPwd";
+            }
+
         }
     }
 }

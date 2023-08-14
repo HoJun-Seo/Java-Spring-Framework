@@ -9,34 +9,17 @@
       crossorigin="anonymous"
     ></script>
     <title>index</title>
+    <script></script>
   </head>
 
   <body>
     <div th:if="${loginConfirm == 'loginSuccess'}">
-      <script th:inline="javascript">
-        const memberObject = [[${memberData}]];
-
-        function loginSuccess() {
-          // 가지고 있는 member 객체를 로그인 성공 이후 유저의 정보를 표시하는 페이지로 이동
-          // index 페이지에서 로그인 상태와 그렇지 않은 상태를 구분해서 페이지를 다르게 표시해주는 것도 방법
-
-          fetch("/loginIndex", {
-            method: "post",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-              userId: memberObject.userId,
-              userPwd: memberObject.userPwd
-            })
-          }).then((response) =>{
-            return response.text();
-          })
-          .then(function(html){
-            document.body.innerHTML = html;
-          })
-        }
-        loginSuccess();
+      <form action="#" id="userForm" th:action="@{/loginIndex}" th:object="${memberData}" method="post">
+        <input type="hidden" name="userId" id="userId" th:field="*{userId}" />
+        <input type="hidden" name="userPwd" id="userPwd" th:field="*{userPwd}" />
+      </form>
+      <script>
+        document.getElementById("userForm").submit();
       </script>
     </div>
     <div th:if="${loginConfirm == 'notMatchPwd'}">

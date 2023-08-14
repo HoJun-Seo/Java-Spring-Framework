@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class DeleteForm {
 
-    private String userId;
+    private String deleteUserId;
+    private String deleteUserPwd;
 }
