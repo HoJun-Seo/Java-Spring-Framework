@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 public class HomeController {
@@ -28,6 +31,8 @@ public class HomeController {
     private final DeleteForm deleteForm;
 
     private final MemberService memberService;
+
+    private HttpSession session;
 
     @GetMapping("/")
     public String index() {
@@ -53,15 +58,20 @@ public class HomeController {
     }
 
     @GetMapping("/delete")
-    public String delete(@ModelAttribute Member member, Model model) {
-        model.addAttribute("memberData", member);
-        System.out.println("회원탈퇴 페이지 이동 : " + member.getUserId() + ", " + member.getUserPwd());
+    public String delete(Model model) {
         model.addAttribute("deleteForm", deleteForm);
         return "delete";
     }
 
+    @DeleteMapping("/logout")
+    public String logout() {
+        session.invalidate();
+        return "index";
+    }
+
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginForm loginForm, Model model) throws JsonProcessingException {
+    public String login(@ModelAttribute LoginForm loginForm, Model model,
+            HttpServletRequest request) throws JsonProcessingException {
 
         String userId = loginForm.getUserId();
         String userPwd = loginForm.getUserPwd();
@@ -73,9 +83,11 @@ public class HomeController {
         String searchResult = memberService.memberLogin(member);
         if (searchResult.equals("loginSuccess")) {
             System.out.println("로그인 성공!");
-            model.addAttribute("loginConfirm", "loginSuccess");
             model.addAttribute("memberData", member);
-            return "/confirm/loginConfirm";
+
+            session = request.getSession();
+            session.setAttribute("memberSession", member);
+            return "/index";
         } else if (searchResult.equals("pwdNotMatch")) {
             System.out.println("비밀번호가 일치하지 않습니다.");
             model.addAttribute("loginConfirm", "notMatchPwd");
@@ -85,12 +97,6 @@ public class HomeController {
             model.addAttribute("loginConfirm", "notExistAccount");
             return "/confirm/loginConfirm";
         }
-    }
-
-    @PostMapping("/loginIndex")
-    public String loginIndex(@ModelAttribute Member member, Model model) {
-        model.addAttribute("memberData", member);
-        return "loginIndex";
     }
 
     @PostMapping("/register")
@@ -117,14 +123,12 @@ public class HomeController {
     @PutMapping("/update")
     public String memberUpdate(@ModelAttribute UpdateForm updateForm, Model model) {
 
-        // 현재 userId 에 해당하는 정보가 존재하는지 확인
+        Member currentMember = (Member) session.getAttribute("memberSession");
 
-        Member currentMember = new Member();
-        currentMember.setUserId(updateForm.getCurrentUserId());
         currentMember.setUserPwd(updateForm.getCurrentUserPwd());
 
         Member updatMember = new Member();
-        updatMember.setUserId(updateForm.getCurrentUserId());
+        updatMember.setUserId(currentMember.getUserId());
         updatMember.setUserPwd(updateForm.getUpdateUserPwd());
 
         String updateResult = memberService.memberUpdate(currentMember, updatMember);
@@ -144,8 +148,7 @@ public class HomeController {
     @DeleteMapping("/delete")
     public String memberDelete(@ModelAttribute DeleteForm deleteForm, Model model) {
 
-        Member member = new Member();
-        member.setUserId(deleteForm.getDeleteUserId());
+        Member member = (Member) session.getAttribute("memberSession");
         member.setUserPwd(deleteForm.getDeleteUserPwd());
         System.out.println("회원탈퇴 메소드 호출 : " + member.getUserId() + ", " + member.getUserPwd());
         String deleteResult = memberService.memberDelete(member);
@@ -155,6 +158,7 @@ public class HomeController {
             model.addAttribute("deleteConfirm", "deleteFail");
         } else if (deleteResult.equals("deleteSucess")) {
             System.out.println("성공적으로 유저의 정보가 삭제 되었습니다.");
+            session.invalidate();
             model.addAttribute("deleteConfirm", "deleteSucess");
         } else {
             System.out.println("삭제할 유저의 현재 비밀번호가 일치하지 않습니다.");

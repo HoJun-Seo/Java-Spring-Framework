@@ -13,47 +13,16 @@
   </head>
 
   <body>
-    <div th:if="${loginConfirm == 'loginSuccess'}">
-      <form action="#" id="userForm" th:action="@{/loginIndex}" th:object="${memberData}" method="post">
-        <input type="hidden" name="userId" id="userId" th:field="*{userId}" />
-        <input type="hidden" name="userPwd" id="userPwd" th:field="*{userPwd}" />
-      </form>
-      <script>
-        document.getElementById("userForm").submit();
-      </script>
-    </div>
     <div th:if="${loginConfirm == 'notMatchPwd'}">
       <script th:inline="javascript">
         alert("비밀번호가 일치하지 않습니다.");
-        fetch("/login", {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            return response.text();
-          })
-          .then(function (html) {
-            document.body.innerHTML = html;
-          });
+        location.href="/login";
       </script>
     </div>
     <div th:if="${loginConfirm == 'notExistAccount'}">
       <script th:inline="javascript">
         alert("존재하지 않는 계정입니다.");
-        fetch("/login", {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => {
-            return response.text();
-          })
-          .then(function (html) {
-            document.body.innerHTML = html;
-          });
+        location.href="/login";
       </script>
     </div>
   </body>

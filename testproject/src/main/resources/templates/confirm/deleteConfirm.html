@@ -20,13 +20,7 @@
     <div th:if="${deleteConfirm == 'notMatchPwd'}">
       <script th:inline="javascript">
         alert("탈퇴할 유저의 현재 비밀번호가 일치하지 않습니다.");
-      </script>
-      <form action="#" id="deleteForm" th:action="@{/delete}" method="get">
-        <input type="hidden" name="userId" th:value="${memberData.userId}" />
-        <input type="hidden" name="userPwd" th:value="${memberData.userPwd}" />
-      </form>
-      <script>
-        document.getElementById("deleteForm").submit();
+        location.href="/delete"
       </script>
     </div>
     <div th:if="${deleteConfirm == 'deleteFail'}">

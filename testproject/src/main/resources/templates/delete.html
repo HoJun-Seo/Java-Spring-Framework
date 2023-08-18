@@ -8,12 +8,29 @@
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
+    <style>
+      label {
+        display: inline-block;
+        text-align: center;
+        width: 130px;
+        font-weight: bold;
+      }
+      #deleteBtn {
+        width: 100px;
+        height: 30px;
+        margin-left: 343px;
+      }
+      #userPwd{
+        width: 300px;
+        height: 30px;
+      }
+    </style>
     <title>회원 탈퇴</title>
   </head>
   <body>
     <h1>회원 탈퇴</h1>
     <form action="#" th:action="@{/delete}" th:object="${deleteForm}" th:method="delete">
-      <input type="hidden" name="deleteUserId" id="userId" th:value="${memberData.userId}" />
+      <input type="hidden" name="deleteUserId" id="userId" th:value="${session.memberSession.userId}" />
       <br />
       <label for="userPwd">현재 비밀번호 : </label>
       <input type="text" name="deleteUserPwd" id="userPwd" />

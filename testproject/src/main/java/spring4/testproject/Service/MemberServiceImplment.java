@@ -62,7 +62,7 @@ public class MemberServiceImplment implements MemberService {
 
             Member getMember = optionalMember.get();
             if (currentMember.getUserPwd().equals(getMember.getUserPwd())) {
-                // 입력한 아이디, 패스워드 일치
+                // 입력한 패스워드 일치
                 memberRepository.memberRegister(updatMember); // 어차피 userId 는 똑같음, 패스워드만 변경됨
                 return "updateSuccess";
             } else {

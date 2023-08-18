@@ -14,7 +14,11 @@
     <div th:if="${updateConfirm == 'updateSuccess'}">
       <script th:inline="javascript">
         alert("회원정보 수정이 완료되었습니다, 다시 로그인해주세요");
-        location.href = "/";
+      </script>
+      <form action="#" id="updateAndLogout" th:action="@{/logout}" th:method="delete">
+      </form>
+      <script th:inline="javascript">
+        document.getElementById("updateAndLogout").submit();
       </script>
     </div>
     <div th:if="${updateConfirm == 'notMatchCurrentPwd'}">
