@@ -2,9 +2,11 @@ package spring4.testproject.Interface.RepositoryInterface;
 
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import spring4.testproject.Model.Member;
 
-public interface MemberRepository {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
     // 유저 검색
     public Optional<Member> select(Member member);
