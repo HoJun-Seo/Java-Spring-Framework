@@ -22,7 +22,7 @@ public class MemberServiceImplment implements MemberService {
         // MemberService, MemberRepository 둘 다 인터페이스를 따로 만들어 준 다음, 해당 인테페이스를 구현하는 식으로
         // 만들어줄것
 
-        Optional<Member> optionalMember = memberRepository.select(member);
+        Optional<Member> optionalMember = memberRepository.findByUserId(member);
 
         if (optionalMember.isPresent()) {
             Member getMember = optionalMember.get();
@@ -42,7 +42,7 @@ public class MemberServiceImplment implements MemberService {
     @Override
     public String memberRegister(Member member) {
 
-        Optional<Member> optionalMember = memberRepository.select(member);
+        Optional<Member> optionalMember = memberRepository.findByUserId(member);
 
         if (optionalMember.isPresent()) {
             return "existMember";
@@ -56,14 +56,14 @@ public class MemberServiceImplment implements MemberService {
     @Override
     public String memberUpdate(Member currentMember, Member updatMember) {
 
-        Optional<Member> optionalMember = memberRepository.select(currentMember);
+        Optional<Member> optionalMember = memberRepository.findByUserId(currentMember);
 
         if (optionalMember.isPresent()) {
 
             Member getMember = optionalMember.get();
             if (currentMember.getUserPwd().equals(getMember.getUserPwd())) {
                 // 입력한 패스워드 일치
-                memberRepository.memberRegister(updatMember); // 어차피 userId 는 똑같음, 패스워드만 변경됨
+                memberRepository.memberUpdate(updatMember); // 어차피 userId 는 똑같음, 패스워드만 변경됨
                 return "updateSuccess";
             } else {
                 // 현재 패스워드가 일치하지 않는 경우
@@ -77,7 +77,7 @@ public class MemberServiceImplment implements MemberService {
     @Override
     public String memberDelete(Member member) {
 
-        Optional<Member> optionalMember = memberRepository.select(member);
+        Optional<Member> optionalMember = memberRepository.findByUserId(member);
 
         if (optionalMember.isEmpty()) {
             return "deleteFail";

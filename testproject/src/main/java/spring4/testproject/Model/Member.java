@@ -12,6 +12,7 @@ import lombok.Setter;
 public class Member {
 
     @Id
+    @Column(name = "userId")
     private String userId;
     @Column(name = "userPwd")
     private String userPwd;

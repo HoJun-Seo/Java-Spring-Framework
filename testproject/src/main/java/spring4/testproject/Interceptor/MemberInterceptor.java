@@ -16,7 +16,7 @@ public class MemberInterceptor implements HandlerInterceptor {
             throws Exception {
         final String method = request.getMethod();
         if (method.equals(HttpMethod.PUT) || method.equals(HttpMethod.DELETE)) {
-            HttpSession session = request.getSession(false); // getSession(false) 의미 알아볼 것
+            HttpSession session = request.getSession(false);
             if (session != null) { // session 이 존재할 경우
                 Object obj = session.getAttribute("member");
                 if (obj != null) // member 라는 이름을 가진 session 이 존재하는 경우
