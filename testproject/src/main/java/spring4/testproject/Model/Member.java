@@ -12,8 +12,8 @@ import lombok.Setter;
 public class Member {
 
     @Id
-    @Column(name = "userId")
+    @Column(name = "userid")
     private String userId;
-    @Column(name = "userPwd")
+    @Column(name = "password")
     private String userPwd;
 }
